@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Castle of Gold Jewels</title>
+<meta name="description" content="Fine jewelry boutique — The Castle of Gold Jewels" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-8V8jS5Sg5..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+:root{
+  --gold:#D4AF37;           /* dorado principal */
+  --gold-2:#E2C766;         /* dorado suave para hover */
+  --onyx:#0a0a0a;           /* fondo principal */
+  --ink:#111;
+  --paper:#f6f1e8;          /* tono marfil para contrastes */
+  --muted:#c7b37a3a;
+  --radius:18px;
+  --shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(1200px 800px at 70% -10%, #2a2113 0%, #0a0a0a 60%); color:#eee; font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif; line-height:1.6}
+a{color:var(--gold); text-decoration:none}
+img{max-width:100%; display:block}
+
+.container{width:min(1200px,92%); margin-inline:auto}
+.btn{
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:.9rem 1.2rem; border:1px solid var(--gold);
+  color:var(--onyx); background:linear-gradient(180deg,var(--gold),var(--gold-2));
+  border-radius:999px; font-weight:700; letter-spacing:.4px;
+  box-shadow:var(--shadow); cursor:pointer; transition:transform .2s ease, filter .2s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn.outline{background:transparent; color:var(--gold); border-color:var(--gold)}
+.btn.outline:hover{background:rgba(212,175,55,.1)}
+.badge{border:1px solid var(--gold); color:var(--gold); padding:.25rem .6rem; border-radius:999px; font-size:.75rem; letter-spacing:.1em}
+
+nav{
+  position:sticky; top:0; z-index:40; backdrop-filter:saturate(140%) blur(6px);
+  background:rgba(10,10,10,.6); border-bottom:1px solid #2c2415;
+}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; padding:.7rem 0}
+.brand{display:flex; align-items:center; gap:.8rem}
+.brand img{width:44px; height:44px; object-fit:contain; filter:drop-shadow(0 6px 12px rgba(0,0,0,.6))}
+.brand h1{font:700 1.05rem "Playfair Display",serif; margin:0; letter-spacing:.04em}
+nav ul{display:flex; gap:1.1rem; list-style:none; padding:0; margin:0}
+nav a{color:#e9e9e9; font-weight:600; padding:.4rem .6rem; border-radius:999px; transition:color .2s, background .2s}
+nav a:hover{background:rgba(212,175,55,.12); color:#fff}
+.lang-switch{display:flex; align-items:center; gap:.4rem}
+.lang-switch select{
+  appearance:none; background:transparent; color:var(--gold); border:1px solid var(--gold);
+  padding:.35rem .7rem; border-radius:999px; font-weight:700; cursor:pointer
+}
+
+/* HERO */
+.hero{
+  position:relative; isolation:isolate; overflow:hidden;
+  min-height:86vh; display:grid; place-items:center;
+}
+.hero .bg{
+  position:absolute; inset:0; z-index:-2;
+  background:
+    radial-gradient(800px 600px at 10% 10%, rgba(212,175,55,.15), transparent 70%),
+    url("https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1800&auto=format&fit=crop") center/cover no-repeat;
+  filter:saturate(0.9) contrast(1.05) brightness(.85);
+}
+.hero .glow{
+  position:absolute; inset:-30%; z-index:-1;
+  background:radial-gradient(closest-side, rgba(212,175,55,.15), transparent 70%);
+  animation:floatGlow 9s ease-in-out infinite alternate;
+}
+@keyframes floatGlow{to{transform:translate3d(3%, -2%, 0)}}
+
+.hero .content{
+  text-align:center; padding:6rem 0 4rem;
+}
+.hero h2{
+  font:700 clamp(1.9rem, 3.5vw + 1rem, 3.8rem) "Playfair Display",serif;
+  margin:.1rem auto; max-width:22ch; line-height:1.2;
+}
+.hero p{
+  color:#e9e1cf; margin:1rem auto 2rem; max-width:55ch;
+  font-size:clamp(1rem, .6vw + .9rem, 1.15rem)
+}
+.hero .cta-row{display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap}
+.scroll-indicator{
+  position:absolute; bottom:20px; left:50%; translate:-50% 0; color:var(--gold);
+  animation:bounce 2s infinite; opacity:.85
+}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* SECTIONS */
+.section{padding:4.5rem 0; position:relative}
+.section .title{
+  font:700 2rem "Playfair Display",serif; margin:0 0 .7rem 0;
+}
+.lead{color:#e9e1cf; max-width:62ch}
+
+.cards{display:grid; grid-template-columns:repeat(12,1fr); gap:1rem; margin-top:2rem}
+.card{
+  grid-column:span 12; border:1px solid #2c2415; border-radius:var(--radius); overflow:hidden;
+  background:linear-gradient(180deg,#14110b, #0e0c08); box-shadow:var(--shadow);
+  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease; position:relative;
+}
+.card:hover{transform:translateY(-4px); border-color:var(--gold); box-shadow:0 16px 40px rgba(212,175,55,.14)}
+.card .media{height:220px; background:#0c0c0c; overflow:hidden}
+.card .media img{width:100%; height:100%; object-fit:cover; transform:scale(1.05); transition:transform .5s ease}
+.card:hover .media img{transform:scale(1.14)}
+.card .body{padding:1.1rem}
+.card h3{margin:.2rem 0 .4rem 0; font:700 1.15rem "Playfair Display",serif}
+.card p{color:#d9d0bb}
+
+/* GALLERY */
+.gallery{margin-top:2rem; display:grid; gap:.7rem; grid-template-columns:repeat(12,1fr)}
+.gallery figure{
+  grid-column:span 6; margin:0; position:relative; border-radius:16px; overflow:hidden; cursor:pointer;
+  border:1px solid #2c2415; background:#111; aspect-ratio:1/1;
+  transition:transform .25s ease, border-color .2s ease;
+}
+.gallery figure:nth-child(1){grid-column:span 12; aspect-ratio:16/9}
+.gallery figure:hover{transform:translateY(-3px); border-color:var(--gold)}
+.gallery img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.05)}
+.gallery figcaption{
+  position:absolute; bottom:0; left:0; right:0; padding:.6rem .8rem;
+  background:linear-gradient(180deg, transparent, rgba(0,0,0,.65));
+  font-weight:600; color:#f1e8d2; letter-spacing:.02em
+}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.8);
+  z-index:60; padding:2rem
+}
+.lightbox.open{display:grid}
+.lightbox img{max-height:85vh; width:auto; border:1px solid var(--gold); border-radius:16px; box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lightbox .close{position:absolute; top:22px; right:22px; font-size:1.6rem; color:#fff; cursor:pointer}
+
+/* ABOUT strip */
+.strip{
+  background:linear-gradient(90deg, rgba(212,175,55,.08), transparent 70%);
+  border-block:1px solid #2c2415;
+}
+.strip .row{display:grid; grid-template-columns:1.3fr 1fr; gap:2rem; align-items:center}
+.strip .stamp{
+  border:1px dashed var(--gold); color:var(--gold);
+  padding:1.2rem; border-radius:16px; text-align:center;
+  transform:rotate(-2deg); box-shadow:var(--shadow); background:#0d0b07
+}
+.strip .stamp b{display:block; font-family:"Playfair Display",serif; font-size:1.3rem}
+
+/* CONTACT (modal) */
+.modal{
+  position:fixed; inset:0; display:none; place-items:center;
+  background:rgba(0,0,0,.75); z-index:70; padding:1rem
+}
+.modal.open{display:grid}
+.modal .dialog{
+  width:min(700px,92vw); background:#0f0d09; border:1px solid var(--gold);
+  border-radius:20px; box-shadow:0 30px 80px rgba(0,0,0,.5); overflow:hidden
+}
+.modal header{
+  display:flex; align-items:center; justify-content:space-between; padding:1rem 1.2rem; background:rgba(212,175,55,.05)
+}
+.modal header h4{margin:0; font:700 1.3rem "Playfair Display",serif}
+.modal .content{padding:1.2rem}
+form label{display:block; font-weight:600; margin:.6rem 0 .2rem}
+input, textarea{
+  width:100%; padding:.9rem 1rem; border-radius:12px; border:1px solid #3b331f;
+  background:#0b0a08; color:#eee; outline:none; transition:border .2s, box-shadow .2s;
+}
+input:focus, textarea:focus{border-color:var(--gold); box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+textarea{min-height:120px; resize:vertical}
+.modal .close{cursor:pointer; color:#fff; font-size:1.4rem}
+
+/* FOOTER */
+footer{
+  border-top:1px solid #2c2415; background:#0b0a08; padding:2.2rem 0; color:#d8d0bd
+}
+.footer-grid{display:grid; gap:1.2rem; grid-template-columns:repeat(12,1fr)}
+.f-col{grid-column:span 12}
+.f-col h5{margin:.2rem 0 .6rem; font:700 1rem "Playfair Display",serif; color:var(--gold)}
+.social a{font-size:1.1rem; margin-right:.6rem; color:#e9e1cf}
+small, .muted{color:#b8ad93}
+
+@media (min-width:760px){
+  .card{grid-column:span 6}
+  .gallery figure{grid-column:span 4}
+  .f-col{grid-column:span 4}
+}
+@media (min-width:1024px){
+  .card{grid-column:span 4}
+}
+
+/* Reveal on scroll */
+.reveal{opacity:0; transform:translateY(16px); transition:all .7s cubic-bezier(.21,.61,.35,1)}
+.reveal.visible{opacity:1; transform:none}
+
+/* Floating WhatsApp style button (optional CTA) */
+.fab{
+  position:fixed; right:18px; bottom:18px; z-index:50;
+  background:linear-gradient(180deg,var(--gold-2),var(--gold));
+  width:58px; height:58px; border-radius:50%; display:grid; place-items:center;
+  color:#111; box-shadow:var(--shadow); cursor:pointer; transition:transform .2s ease
+}
+.fab:hover{transform:translateY(-2px)}
+.tooltip{position:fixed; right:88px; bottom:28px; background:#0b0a08; border:1px solid var(--gold); padding:.4rem .6rem; border-radius:8px; color:#e9e1cf; font-size:.85rem; opacity:.9}
+
+/* Utility */
+.hr{height:1px; background:#2c2415; border:none; margin:1.4rem 0}
+</style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <img src="TCOGJ.png" alt="The Castle of Gold Jewels logo" />
+        <h1>The Castle of Gold Jewels</h1>
+      </a>
+      <ul>
+        <li><a href="#collections" data-i18n="nav.collections">Colecciones</a></li>
+        <li><a href="#craft" data-i18n="nav.craft">Oficio</a></li>
+        <li><a href="#gallery" data-i18n="nav.gallery">Galería</a></li>
+        <li><a id="openContact" href="#" class="badge" title="Contact">Contact</a></li>
+      </ul>
+      <div class="lang-switch">
+        <i class="fa-solid fa-globe"></i>
+        <select id="lang">
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="top" class="hero">
+    <div class="bg" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div>
+    <div class="container content reveal">
+      <span class="badge" data-i18n="hero.badge">Alta joyería</span>
+      <h2 data-i18n="hero.title">Elegancia en oro que trasciende generaciones</h2>
+      <p data-i18n="hero.text">Diseños atemporales, acabados impecables y brillo que cuenta historias. Hecho para celebrar tus momentos más valiosos.</p>
+      <div class="cta-row">
+        <a href="#collections" class="btn"><i class="fa-regular fa-gem"></i> <span data-i18n="hero.cta1">Ver colecciones</span></a>
+        <button class="btn outline" id="heroContact"><i class="fa-solid fa-envelope"></i> <span data-i18n="hero.cta2">Consultar ahora</span></button>
+      </div>
+    </div>
+    <div class="scroll-indicator"><i class="fa-solid fa-angles-down"></i></div>
+  </header>
+
+  <!-- COLLECTIONS / SERVICES -->
+  <section id="collections" class="section container">
+    <h3 class="title reveal" data-i18n="col.title">Colecciones destacadas</h3>
+    <p class="lead reveal" data-i18n="col.lead">Cada pieza se crea con precisión artesanal usando oro certificado y gemas seleccionadas. Descubre nuestra selección curada.</p>
+
+    <div class="cards">
+      <!-- 1 -->
+      <article class="card reveal">
+        <div class="media">
+          <img alt="Gold rings" src="https://images.unsplash.com/photo-1654521883301-070279dd0ae1?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" loading="lazy">
+        </div>
+        <div class="body">
+          <h3 data-i18n="col.c1.title">Aros & Anillos</h3>
+          <p data-i18n="col.c1.text">Solitaries, argollas y sets apilables en oro 14K/18K con diamantes talla brillante.</p>
+        </div>
+      </article>
+      <!-- 2 -->
+      <article class="card reveal">
+        <div class="media">
+          <img alt="Gold necklace" src="https://images.unsplash.com/photo-1717409014701-8e630ff057f3?q=80&w=1334&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" loading="lazy">
+        </div>
+        <div class="body">
+          <h3 data-i18n="col.c2.title">Collares & Dije</h3>
+          <p data-i18n="col.c2.text">Cadenas italianas, colgantes personalizados y iniciales engastadas a medida.</p>
+        </div>
+      </article>
+      <!-- 3 -->
+      <article class="card reveal">
+        <div class="media">
+          <img alt="Bracelet" src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" loading="lazy">
+        </div>
+        <div class="body">
+          <h3 data-i18n="col.c3.title">Pulseras & Tobilleras</h3>
+          <p data-i18n="col.c3.text">Diseños minimalistas y clásicos; ajustes de tamaño incluidos sin costo.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ABOUT / CRAFT -->
+  <section id="craft" class="section strip">
+    <div class="container row">
+      <div class="reveal">
+        <h3 class="title" data-i18n="craft.title">Oro con historia, piezas con alma</h3>
+        <p class="lead" data-i18n="craft.text">
+          Nuestro taller combina técnicas tradicionales de engaste con tecnología moderna de microfusión.
+          Garantizamos pureza del oro y procedencia ética de cada gema.
+        </p>
+        <div class="hr"></div>
+        <p class="muted">
+          <i class="fa-solid fa-location-dot"></i>
+          <span data-i18n="contact.addr">2721 Ocean Blvd, apt 303 — Hollywood, Florida — ZIP: 33019</span><br>
+          <i class="fa-solid fa-envelope"></i> <a href="mailto:castleofgoldjewels@gmail.com">castleofgoldjewels@gmail.com</a>
+        </p>
+        <button class="btn" id="craftContact"><i class="fa-solid fa-gem"></i> <span data-i18n="craft.cta">Pedir asesoría personalizada</span></button>
+      </div>
+      <div class="stamp reveal">
+        <b data-i18n="craft.stamp1">Certificado de Autenticidad</b>
+        <span data-i18n="craft.stamp2">Oro 14K/18K • Diamantes naturales • Garantía de por vida</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="section container">
+    <h3 class="title reveal" data-i18n="gal.title">Galería</h3>
+    <p class="lead reveal" data-i18n="gal.lead">Desliza y toca para ampliar. Todas las imágenes son ilustrativas.</p>
+    <div class="gallery">
+      <figure class="reveal"><img src="https://images.unsplash.com/photo-1623321673989-830eff0fd59f?q=80&w=740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""><figcaption data-i18n="gal.cap1">Collar en oro con diamantes</figcaption></figure>
+      <figure class="reveal"><img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""><figcaption data-i18n="gal.cap2">Anillos apilables</figcaption></figure>
+      <figure class="reveal"><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""><figcaption data-i18n="gal.cap3">Pulsera minimal</figcaption></figure>
+      <figure class="reveal"><img src="https://images.unsplash.com/photo-1671513578788-a0129af392ce?q=80&w=801&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""><figcaption data-i18n="gal.cap4">Dije personalizado</figcaption></figure>
+      <figure class="reveal"><img src="https://images.unsplash.com/photo-1701777892770-df3bf8006fd8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""><figcaption data-i18n="gal.cap5">Argollas clásicas</figcaption></figure>
+      <figure class="reveal"><img src="https://images.unsplash.com/photo-1725918319277-bde4167ffb22?q=80&w=734&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""><figcaption data-i18n="gal.cap6">Detalle de engaste</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- CONTACT MODAL -->
+  <div id="contactModal" class="modal" aria-hidden="true">
+    <div class="dialog">
+      <header>
+        <h4 data-i18n="form.title">Contacto</h4>
+        <span class="close" id="closeModal"><i class="fa-solid fa-xmark"></i></span>
+      </header>
+      <div class="content">
+        <form action="https://formsubmit.co/castleofgoldjewels@gmail.com" method="POST">
+          <!-- formsubmit options -->
+          <input type="hidden" name="_subject" value="New inquiry - The Castle of Gold Jewels">
+          <input type="hidden" name="_captcha" value="true">
+          <input type="hidden" name="_template" value="box">
+          <input type="hidden" name="_next" value="https://example.com/thanks.html">
+          <div class="grid">
+            <label data-i18n="form.name">Nombre</label>
+            <input required type="text" name="name" placeholder="Jane Doe" />
+            <label data-i18n="form.email">Email</label>
+            <input required type="email" name="email" placeholder="you@email.com" />
+            <label data-i18n="form.msg">Mensaje</label>
+            <textarea name="message" placeholder="¿Qué pieza te interesa?"></textarea>
+          </div>
+          <div style="margin-top:1rem; display:flex; gap:.6rem; align-items:center; justify-content:flex-end">
+            <button type="button" class="btn outline" id="cancelForm" data-i18n="form.cancel">Cancelar</button>
+            <button class="btn" type="submit"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="form.send">Enviar</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <span class="close" id="lbClose"><i class="fa-solid fa-xmark"></i></span>
+    <img id="lbImg" alt="">
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="f-col">
+        <h5>The Castle of Gold Jewels</h5>
+        <p class="muted" data-i18n="footer.s1">Alta joyería en Hollywood, Florida.</p>
+      </div>
+      <div class="f-col">
+        <h5 data-i18n="footer.visit">Visítanos</h5>
+        <p class="muted" data-i18n="contact.addr">2721 Ocean Blvd, apt 303 — Hollywood, Florida — ZIP: 33019</p>
+      </div>
+      <div class="f-col">
+        <h5 data-i18n="footer.contact">Contacto</h5>
+        <p class="muted"><a href="mailto:castleofgoldjewels@gmail.com"><i class="fa-solid fa-envelope"></i> castleofgoldjewels@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="container" style="margin-top:1rem">
+      <small>© <span id="year"></span> The Castle of Gold Jewels</small>
+    </div>
+  </footer>
+
+  <!-- Floating CTA -->
+  <button class="fab" id="fab" aria-label="Contact"><i class="fa-regular fa-envelope"></i></button>
+  <div class="tooltip" id="fabTip" style="display:none" data-i18n="tooltip">¿Necesitas ayuda? Escríbenos</div>
+
+<script>
+/* ====== Language pack ====== */
+const i18n = {
+  es: {
+    "nav.collections":"Colecciones",
+    "nav.craft":"Oficio",
+    "nav.gallery":"Galería",
+    "hero.badge":"Alta joyería",
+    "hero.title":"Elegancia en oro que trasciende generaciones",
+    "hero.text":"Diseños atemporales, acabados impecables y brillo que cuenta historias. Hecho para celebrar tus momentos más valiosos.",
+    "hero.cta1":"Ver colecciones",
+    "hero.cta2":"Consultar ahora",
+    "col.title":"Colecciones destacadas",
+    "col.lead":"Cada pieza se crea con precisión artesanal usando oro certificado y gemas seleccionadas. Descubre nuestra selección curada.",
+    "col.c1.title":"Aros & Anillos",
+    "col.c1.text":"Solitaries, argollas y sets apilables en oro 14K/18K con diamantes talla brillante.",
+    "col.c2.title":"Collares & Dije",
+    "col.c2.text":"Cadenas italianas, colgantes personalizados y iniciales engastadas a medida.",
+    "col.c3.title":"Pulseras & Tobilleras",
+    "col.c3.text":"Diseños minimalistas y clásicos; ajustes de tamaño incluidos sin costo.",
+    "craft.title":"Oro con historia, piezas con alma",
+    "craft.text":"Nuestro taller combina técnicas tradicionales de engaste con tecnología moderna de microfusión. Garantizamos pureza del oro y procedencia ética de cada gema.",
+    "craft.cta":"Pedir asesoría personalizada",
+    "craft.stamp1":"Certificado de Autenticidad",
+    "craft.stamp2":"Oro 14K/18K • Diamantes naturales • Garantía de por vida",
+    "gal.title":"Galería",
+    "gal.lead":"Desliza y toca para ampliar. Todas las imágenes son ilustrativas.",
+    "gal.cap1":"Collar en oro con diamantes",
+    "gal.cap2":"Anillos apilables",
+    "gal.cap3":"Pulsera minimal",
+    "gal.cap4":"Dije personalizado",
+    "gal.cap5":"Argollas clásicas",
+    "gal.cap6":"Detalle de engaste",
+    "form.title":"Contacto",
+    "form.name":"Nombre",
+    "form.email":"Email",
+    "form.msg":"Mensaje",
+    "form.cancel":"Cancelar",
+    "form.send":"Enviar",
+    "contact.addr":"2721 Ocean Blvd, apt 303 — Hollywood, Florida — ZIP: 33019",
+    "footer.s1":"Alta joyería en Hollywood, Florida.",
+    "footer.visit":"Visítanos",
+    "footer.contact":"Contacto",
+    "tooltip":"¿Necesitas ayuda? Escríbenos"
+  },
+  en: {
+    "nav.collections":"Collections",
+    "nav.craft":"Craft",
+    "nav.gallery":"Gallery",
+    "hero.badge":"High Jewelry",
+    "hero.title":"Gold elegance that outlives generations",
+    "hero.text":"Timeless designs, flawless finishes and a sparkle that tells your story. Made to celebrate your most precious moments.",
+    "hero.cta1":"View collections",
+    "hero.cta2":"Inquire now",
+    "col.title":"Featured Collections",
+    "col.lead":"Each piece is crafted with artisanal precision using certified gold and carefully selected gems. Explore our curated selection.",
+    "col.c1.title":"Earrings & Rings",
+    "col.c1.text":"Solitaire rings, bands and stackable sets in 14K/18K gold with brilliant‑cut diamonds.",
+    "col.c2.title":"Necklaces & Pendants",
+    "col.c2.text":"Italian chains, bespoke pendants and set initials made to order.",
+    "col.c3.title":"Bracelets & Anklets",
+    "col.c3.text":"Minimal and classic designs; complimentary sizing adjustments included.",
+    "craft.title":"Gold with history, pieces with soul",
+    "craft.text":"Our atelier blends traditional stone setting with modern micro‑casting. We guarantee gold purity and the ethical origin of each gem.",
+    "craft.cta":"Book a personal consultation",
+    "craft.stamp1":"Certificate of Authenticity",
+    "craft.stamp2":"14K/18K Gold • Natural diamonds • Lifetime warranty",
+    "gal.title":"Gallery",
+    "gal.lead":"Swipe and tap to enlarge. Images are illustrative.",
+    "gal.cap1":"Diamond gold necklace",
+    "gal.cap2":"Stackable rings",
+    "gal.cap3":"Minimal bracelet",
+    "gal.cap4":"Custom pendant",
+    "gal.cap5":"Classic hoops",
+    "gal.cap6":"Setting detail",
+    "form.title":"Contact",
+    "form.name":"Name",
+    "form.email":"Email",
+    "form.msg":"Message",
+    "form.cancel":"Cancel",
+    "form.send":"Send",
+    "contact.addr":"2721 Ocean Blvd, apt 303 — Hollywood, Florida — ZIP: 33019",
+    "footer.s1":"Fine jewelry in Hollywood, Florida.",
+    "footer.visit":"Visit us",
+    "footer.contact":"Contact",
+    "tooltip":"Need help? Write to us"
+  }
+};
+
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+
+/* ====== Language handling ====== */
+const langSel = $("#lang");
+const applyLang = (lng)=>{
+  const dict = i18n[lng] || i18n.es;
+  $$("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if(dict[key]) el.textContent = dict[key];
+  });
+  document.documentElement.lang = lng;
+  localStorage.setItem("tcogj_lang", lng);
+};
+langSel.addEventListener("change", e => applyLang(e.target.value));
+applyLang(localStorage.getItem("tcogj_lang") || "es");
+
+/* ====== Reveal on scroll ====== */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add("visible"); io.unobserve(e.target); }
+  });
+},{threshold:.18});
+$$(".reveal").forEach(el=>io.observe(el));
+
+/* ====== Lightbox for gallery ====== */
+const lb = $("#lightbox"), lbImg=$("#lbImg");
+$$(".gallery figure").forEach(fig=>{
+  fig.addEventListener("click", ()=>{
+    lb.classList.add("open");
+    lbImg.src = $("img", fig).src;
+    lb.setAttribute("aria-hidden","false");
+  });
+});
+$("#lbClose").addEventListener("click", ()=>{lb.classList.remove("open"); lb.setAttribute("aria-hidden","true")});
+lb.addEventListener("click", (e)=>{ if(e.target===lb) lb.classList.remove("open"); });
+
+/* ====== Contact modal ====== */
+const modal = $("#contactModal");
+const openModal = ()=>{modal.classList.add("open"); modal.setAttribute("aria-hidden","false");};
+const closeModal = ()=>{modal.classList.remove("open"); modal.setAttribute("aria-hidden","true");};
+$("#openContact").addEventListener("click", e=>{e.preventDefault(); openModal();});
+$("#heroContact").addEventListener("click", openModal);
+$("#craftContact").addEventListener("click", openModal);
+$("#closeModal").addEventListener("click", closeModal);
+$("#cancelForm").addEventListener("click", closeModal);
+
+/* ====== Floating CTA tooltip ====== */
+const fab = $("#fab"), tip=$("#fabTip");
+let tipShown=false;
+fab.addEventListener("click", openModal);
+fab.addEventListener("mouseenter", ()=>{tip.style.display="block"});
+fab.addEventListener("mouseleave", ()=>{tip.style.display="none"});
+setTimeout(()=>{ if(!tipShown){ tip.style.display="block"; tipShown=true; setTimeout(()=>tip.style.display="none", 3000); }}, 1800);
+
+/* year */
+$("#year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
